@@ -1,5 +1,7 @@
 # From Page to Screen – The Journey and Success of Book Adaptations
 
+Team : Ghalia, Rania, Valentin, Omar and Leïla 
+
 # Abstract
 
 
@@ -59,6 +61,8 @@ In order to find answers to these questions, we will use the following data anal
 ## 30/11 to 8/12
 - Parts 4 - 5
 - Start Part 6 : How would we like to visualize our findings ? 
+- Start implementation
 
 ## 8/12 to 22/12 
 - Cleaning repository 
+- Finalize/Refine our host page for visualizing our data story

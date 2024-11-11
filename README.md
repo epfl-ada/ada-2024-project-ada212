@@ -43,9 +43,22 @@ In order to find answers to these questions, we will use the following data anal
 - Step 1 : Use scatter plots and regression models to show if a larger budget leads to higher revenue and better ratings.
 - Step 2 : Calculate ROI and visualize the distribution to identify budget “sweet spots” where adaptations achieve the best returns.
 
+## Part 6 : Create Datastory
 
 # Timeline 
 
 ## Until 15/11/2024 :   
 - Creating dataset 
+- Data-Handling and Preprocessing 
+- Initial Exploratory Data Analysis 
 
+## 15/11 to 30/11 
+- Homework 2
+- Parts 1 - 3
+
+## 30/11 to 8/12
+- Parts 4 - 5
+- Start Part 6 : How would we like to visualize our findings ? 
+
+## 8/12 to 22/12 
+- Cleaning repository 

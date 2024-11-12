@@ -43,7 +43,7 @@ def plot_missing_revenues_budget(y1, y2, y3, y4):
     ax1.plot(y2.index, y2, label='Missing Budget Adapted', color='blue')
     ax1.set_title('Adapted Movies')
     ax1.set_xlabel('Year')
-    ax1.set_ylabel('Percentage of Missing Data (%)')
+    ax1.set_ylabel('Number of missing values')
     ax1.set_xlim([1910, 2010])
     ax1.set_ylim([0, 70])
     ax1.grid(True)
@@ -53,7 +53,7 @@ def plot_missing_revenues_budget(y1, y2, y3, y4):
     ax2.plot(y4.index, y4, label='Missing Budget', color='blue')
     ax2.set_title('Non-Adapted Movies')
     ax2.set_xlabel('Year')
-    ax2.set_ylabel('Percentage of Missing Data (%)')
+    ax2.set_ylabel('Number of missing values')
     ax2.set_xlim([1910, 2010])
     ax2.set_ylim([0, 2000])
     ax2.grid(True)
@@ -87,3 +87,16 @@ def heatmap_missing_values(data):
     plt.tight_layout()
 
     plt.show()
+
+def proportion_missing_values_all_dataset(data, features):
+    # Create a dictionary to store the count of missing values for each feature
+    missing_values_dict = {feature: data[feature].isna().sum() for feature in features}
+    return missing_values_dict
+
+def is_numerical_feature(data, feature):
+    """Check if a feature is numerical and continuous."""
+    return pd.api.types.is_float_dtype(data[feature]) or pd.api.types.is_integer_dtype(data[feature])
+
+def is_boolean_feature(data, feature):
+    """Check if a feature is boolean."""
+    return pd.api.types.is_bool_dtype(data[feature])

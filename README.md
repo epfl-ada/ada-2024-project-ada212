@@ -49,20 +49,20 @@ In order to find answers to these questions, we will use the following data anal
 
 # Timeline 
 
-## Until 15/11/2024 :   
-- Creating dataset 
-- Data-Handling and Preprocessing 
-- Initial Exploratory Data Analysis 
+## Until 15/11/2024 (Deadline Milestone P2) :   
+- Creating dataset (Rania and Ghalia)
+- Data-Handling and Preprocessing (Rania and Ghalia)
+- Initial Exploratory Data Analysis (Omar, Leïla and Valentin)
 
-## 15/11 to 30/11 
-- Homework 2
-- Parts 1 - 3
+## 15/11 to 30/11 :
+- Homework 2 (all 5 members)
+- Parts 1 - 3 (Leïla, Rania and Valentin)
 
-## 30/11 to 8/12
-- Parts 4 - 5
-- Start Part 6 : How would we like to visualize our findings ? 
-- Start implementation
+## 30/11 to 8/12 :
+- Parts 4 - 5 (Ghalia and Omar)
+- Start Part 6 : How would we like to visualize our findings ? (Valentin)
+- Start implementation(Leïla and Rania)
 
-## 8/12 to 22/12 
+## 8/12 to 22/12 (Deadline Milestone P3) : 
 - Cleaning repository 
 - Finalize/Refine our host page for visualizing our data story

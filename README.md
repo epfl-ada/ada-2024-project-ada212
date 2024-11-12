@@ -4,34 +4,50 @@ Team : Ghalia, Rania, Valentin, Omar and Leïla
 
 # Abstract
 
+## Storytelling Framework
+The analysis is framed around the storytelling theme. This narrative guides us through the following research questions, building a cohesive story that contrasts book adaptations and original movies.
 
 # Research Questions
-In this analysis, we would like to answer the following questions:
+1. **The Origins: What Books Capture the Attention of Filmmakers?**
+   - What traits in books make them attractive for adaptation?
 
-- What traits in books make them attractive for adaptation?
+2. **The Path to Adaptation: What Factors Influence Adaptation Time?**
+   - How long does it take for a popular book to become a movie, and what influences this timeline?
+   - Are there seasonal patterns in the release of book adaptations?
 
-- How long does it take for a popular book to become a movie, and what influences this timeline?
+3. **The Grand Premiere: Measuring the Success of Adaptations**
+   - What elements predict the success of a movie adaptation?
+   - How has the popularity and financial success of book adaptations evolved over time?
 
-- What elements predict the success of a movie adaptation?
+4. **The Global Reception: Do Adaptations Translate Well Across Borders?**
+   - How do movie adaptations perform internationally, and are adaptations from certain countries more successful?
+   - Are adaptations from certain countries more successful, and do they align with the nationality of the book's author?
 
-- How do movie adaptations perform internationally, and are adaptations from certain countries more successful?
+5. **The Budget and Investment Dilemma: Does Spending More Pay Off?**
+   - Is there a direct correlation between the budget of an adaptation and its financial and critical success?
 
-- Is there a direct correlation between the budget of an adaptation and its financial and critical success?
+6. **Plot Twist: Unexpected Success Stories**
+   - Which book adaptations outperformed expectations despite low initial ratings or budgets?
+
 
 
 # Methods 
-
 In order to find answers to these questions, we will use the following data analysis pipeline.
 
 ## Part 0 : Creating dataset and cleaning the data
-
+- **Approach**:
+  - Remove duplicates and handle missing values appropriately.
+  - Clean categorical variables (e.g., genres, languages) and standardize numerical data (e.g., revenue, budget) for analysis.
+  - Normalize or transform data as needed (e.g., log transformations for skewed distributions).
+    
 ## Part 1 : Looking for similarities between adapted books
 - Step 1 : Use correlation analysis to identify book features (e.g., ratings, page count) that correlate with being chosen for adaptation
 - Step 2 : Use a Random Forest Regressor to determine which features of the book (e.g., page count, genre, ratings) are most important in predicting movie success.
 - Step 3 : Implement a logistic regression to predict whether a book will result in a successful movie adaptation (using a threshold, such as revenue above a median value or IMDb rating above a certain score).
 
 ## Part 2 : 
-- Step 1 : Use Kaplan-Meier estimators to visualize the “survival” rate of books over time i.e., how likely they are to be adapted within certain time frames.
+- Step 1 : **Kaplan-Meier Estimators**: Visualize the “survival” rate of books over time, showing the likelihood of adaptation within different time frames.
+- Step 2: **Seasonal Analysis**: Analyze the release patterns of adaptations to identify if certain seasons align with higher success rates using time series plots.
 
 ## Part 3 : Results of book-to-movie transformation
 - Step 1 : Model the relationship between book characteristics (e.g., genre, ratings) and movie success metrics (e.g., box office revenue, IMDb rating). For instance, using correlational analysis between Goodreads ratings and movie performance metrics.
@@ -45,7 +61,9 @@ In order to find answers to these questions, we will use the following data anal
 - Step 1 : Use scatter plots and regression models to show if a larger budget leads to higher revenue and better ratings.
 - Step 2 : Calculate ROI and visualize the distribution to identify budget “sweet spots” where adaptations achieve the best returns.
 
-## Part 6 : Create Datastory
+## Part 6 : Plot twist: unexpected story successes
+
+
 
 # Timeline 
 

@@ -88,15 +88,53 @@ def heatmap_missing_values(data):
 
     plt.show()
 
-def proportion_missing_values_all_dataset(data, features):
-    # Create a dictionary to store the count of missing values for each feature
+def proportion_missing_values_all_dataset(data, features, adaptation=False):
+    """
+    Create a dictionary to store the count of missing values for each feature.
+    If adaptation is True, use only the subset where 'movie_is_adaptation' is True.
+    """
+    if adaptation:
+        data = data[data['movie_is_adaptation'] == True]
+        print(f"Count of adapted movies: {len(data)}")
+    
     missing_values_dict = {feature: data[feature].isna().sum() for feature in features}
     return missing_values_dict
 
-def is_numerical_feature(data, feature):
-    """Check if a feature is numerical and continuous."""
-    return pd.api.types.is_float_dtype(data[feature]) or pd.api.types.is_integer_dtype(data[feature])
+def print_missing_values_summary(data, features, adaptation=False):
+    """
+    Prints the proportion of missing values for each feature in a formatted way.
+    If adaptation is True, uses only the subset where 'movie_is_adaptation' is True.
+    """
+    if adaptation:
+        subset_data = data[data['movie_is_adaptation'] == True]
+        total_count = len(subset_data)
+    else:
+        subset_data = data
+        total_count = len(data)
+    
+    missing_values_dict = proportion_missing_values_all_dataset(data, features, adaptation)
+    print("\nMissing Values Summary:")
+    for feature, missing_count in missing_values_dict.items():
+        proportion = (missing_count / total_count) * 100 if total_count > 0 else 0
+        print(f"{feature}: {missing_count} missing values ({proportion:.2f}%)")
 
-def is_boolean_feature(data, feature):
-    """Check if a feature is boolean."""
-    return pd.api.types.is_bool_dtype(data[feature])
+    # Print the overall proportion of missing values for adaptations and non-adaptations
+    adapted_missing_counts = {feature: data[data['movie_is_adaptation'] == True][feature].isna().sum() for feature in features}
+    non_adapted_missing_counts = {feature: data[data['movie_is_adaptation'] == False][feature].isna().sum() for feature in features}
+
+    print("\nProportion of missing values for adaptations:")
+    for feature, count in adapted_missing_counts.items():
+        proportion = (count / len(data[data['movie_is_adaptation'] == True])) * 100 if len(data[data['movie_is_adaptation'] == True]) > 0 else 0
+        print(f"{feature}: {proportion:.2f}%")
+
+    print("\nProportion of missing values for the entire dataset (including non-adaptations):")
+    for feature, count in missing_values_dict.items():
+        proportion = (count / len(data)) * 100 if len(data) > 0 else 0
+        print(f"{feature}: {proportion:.2f}%")
+
+
+
+
+def proportion_of_dataset(dataset_original, dataset_reduced) : 
+    return (len(dataset_reduced)/len(dataset_original)*100)
+

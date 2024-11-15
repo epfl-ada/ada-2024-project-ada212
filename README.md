@@ -42,7 +42,10 @@ The analysis is framed around the storytelling theme. This narrative guides us t
    - **How to merge ?** 
       - CMU-Wikidata Link: Each movie in the CMU dataset has a unique Wikipedia ID, which does not match the corresponding Wikidata IDs. We used the wikimapper package to align Wikidata and Wikipedia IDs accurately.
       - Wikidata-IMDb-TMDB Link: Since Wikidata includes IMDb IDs for most movies, we leveraged these identifiers to link records across the IMDb and TMDB datasets.
-      - Wikidata-Goodreads Link: Merging book data from Wikidata with Goodreads posed difficulties due to inconsistent Goodreads IDs in Wikidata. Instead, we matched the records using a combination of (book_author, book_title), assuming this pair would uniquely identify most books. We standardized title and author formats across datasets and verified results manually to confirm accurate matches.
+      - Wikidata-Goodreads Link: Merging book data from Wikidata with Goodreads posed difficulties due to inconsistent Goodreads IDs in Wikidata. Instead, we matched the records using a combination of (book_author, book_title), assuming this pair would uniquely identify most books.
+   - **First Preprocessing:**
+      - We standardized title and author formats across datasets.
+      - We fetched the US Consumer Price Index (CPI) and computed the inflation adjustment factor for each year so we can later on normalize financial data.
 
 # Methods 
 In order to find answers to these questions, we will use the following data analysis pipeline.

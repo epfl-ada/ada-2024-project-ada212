@@ -106,7 +106,7 @@ In order to find answers to these questions, we will use the following data anal
 - **Repository Cleaning**: *All team members*
 - **Finalize/Refine Host Page for Data Visualization**: *All team members*
 
-
+```
 ada-2024-project-ada212/
 │
 ├── data/                           # Directory for all data files used in the project
@@ -123,3 +123,4 @@ ada-2024-project-ada212/
 ├── framework.ipynb                 # Notebook outlining the framework for analysis
 ├── results.ipynb                   # Notebook summarizing and presenting the results
 ├── requirements.txt                # List of dependencies for reproducing the project environment
+```

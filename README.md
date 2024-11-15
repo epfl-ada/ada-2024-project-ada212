@@ -98,8 +98,8 @@ In order to find answers to these questions, we will use the following data anal
 - **Parts 1 - 3 Completion**: *Leïla, Rania, and Valentin*
 
 ## 📆 30/11 to 8/12
-- **Parts 4 - 5 Completion**: *Ghalia and Omar*
-- **Start Part 6 - Visualization Planning**: *Valentin*
+- **Parts 4 - 6 Completion**: *Ghalia and Omar*
+- **Start - Visualization Planning**: *Valentin*
 - **Begin Implementation**: *Leïla and Rania*
 
 ## 🗓️ 8/12 to 22/12 (Deadline Milestone P3)

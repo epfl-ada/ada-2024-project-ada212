@@ -46,6 +46,10 @@ The analysis is framed around the storytelling theme. This narrative guides us t
    - **First Preprocessing:**
       - We standardized title and author formats across datasets.
       - We fetched the US Consumer Price Index (CPI) and computed the inflation adjustment factor for each year so we can later on normalize financial data.
+- **Final Dataset:**  data_extraction.ipynb notebook creates 3 .csv files:
+   - book_adapation.csv which contains metadata for movies and metadata for books for which movies were identified as adaptations from Wikidata.
+   - inflation_adjustment.csv which contains the inflation adjustment rate for multiple years, it will be used later in the results.ipynb to normalize budgets and revenues.
+   - book_adapation_extanded.csv which contains some late fetched revenue and budget infomations from Wikidata.
 
 # Methods 
 In order to find answers to these questions, we will use the following data analysis pipeline.

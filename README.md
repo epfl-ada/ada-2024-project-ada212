@@ -30,7 +30,19 @@ The analysis is framed around the storytelling theme. This narrative guides us t
 6. **Plot Twist: Unexpected Success Stories**
    - Which book adaptations outperformed expectations despite low initial ratings or budgets?
 
-
+# Data
+- **Base Dataset**: The primary dataset, the CMU Movie Summary Corpus, contains information on approximately 80,000 films, including details like release dates, duration, genre, and cast. For this study, we augmented this dataset with data from several additional sources.
+- **Additional Datasets**:
+   - **IMDb Ratings:** To measure audience reception, we enhanced our dataset with IMDb scores.
+   - **TMDB:** Many entries in the CMU dataset lacked revenue information. We filled these gaps using data from The Movie Database (TMDB).
+   - **Wikidata:** We fetched some more data about movies' revenue and budget from Wikidata. Moreover, to identify films that are based on books, we queried the Wikidata Graph Database with SPARQL. We also obtained metadata about these books, such as publication dates, page count, genre, and author, enabling comparisons between the books' characteristics and those of their corresponding films.
+   - **Goodreads:** To further enrich our book data, we incorporated information scraped from Goodreads, including user ratings and page counts for each book.
+   - **Consumer Price Index (CPI):** Since our revenue and budget data spans multiple decades, we used the U.S. Consumer Price Index to normalize financial data, making revenue and budget figures comparable over time.
+- **Data extraction and first preprocessing:**: In the notebook data_extraction.ipynb, we loaded, preprocessed, and combined these datasets.
+   - **How to merge ?** 
+      -CMU-Wikidata Link: Each movie in the CMU dataset has a unique Wikipedia ID, which does not match the corresponding Wikidata IDs. We used the wikimapper package to align Wikidata and Wikipedia IDs accurately.
+      -Wikidata-IMDb-TMDB Link: Since Wikidata includes IMDb IDs for most movies, we leveraged these identifiers to link records across the IMDb and TMDB datasets.
+      -Wikidata-Goodreads Link: Merging book data from Wikidata with Goodreads posed difficulties due to inconsistent Goodreads IDs in Wikidata. Instead, we matched the records using a combination of (book_author, book_title), assuming this pair would uniquely identify most books. We standardized title and author formats across datasets and verified results manually to confirm accurate matches.
 
 # Methods 
 In order to find answers to these questions, we will use the following data analysis pipeline.

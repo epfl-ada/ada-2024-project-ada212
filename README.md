@@ -66,7 +66,7 @@ In order to find answers to these questions, we will use the following data anal
 - Step 2 : Use a Random Forest Regressor to determine which features of the book (e.g., page count, genre, ratings) are most important in predicting movie success.
 - Step 3 : Implement a logistic regression to predict whether a book will result in a successful movie adaptation (using a threshold, such as revenue above a median value or IMDb rating above a certain score).
 
-## Part 2 : 
+## Part 2 : Analyzing Adaptation Timelines and Release Patterns
 - Step 1 : **Kaplan-Meier Estimators**: Visualize the “survival” rate of books over time, showing the likelihood of adaptation within different time frames.
 - Step 2: **Seasonal Analysis**: Analyze the release patterns of adaptations to identify if certain seasons align with higher success rates using time series plots.
 
@@ -105,3 +105,21 @@ In order to find answers to these questions, we will use the following data anal
 ## 🗓️ 8/12 to 22/12 (Deadline Milestone P3)
 - **Repository Cleaning**: *All team members*
 - **Finalize/Refine Host Page for Data Visualization**: *All team members*
+
+
+ada-2024-project-ada212/
+│
+├── data/                           # Directory for all data files used in the project
+│   ├── book_adaptation.csv         # Dataset containing movies and their potential book adaptation information
+│   ├── book_adaptation_expanded.csv # Expanded dataset with additional revenues and budgets for movies
+│   ├── cleaned_dataset.csv         # Cleaned version of the dataset after preprocessing
+│   └── inflation_adjustment.csv    # Data file for adjusting monetary values for inflation
+│
+├── src/                            # Source code directory for project scripts and notebooks
+│   ├── data_extraction.ipynb       # Jupyter notebook for data extraction and initial exploration
+│   └── utils.py                    # Utility functions used across the project
+│
+├── README.md                       # Project documentation
+├── framework.ipynb                 # Notebook outlining the framework for analysis
+├── results.ipynb                   # Notebook summarizing and presenting the results
+├── requirements.txt                # List of dependencies for reproducing the project environment

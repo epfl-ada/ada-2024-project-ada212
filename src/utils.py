@@ -157,3 +157,4 @@ def plot_histograms(df, columns):
             plt.show()
         else:
             print(f"Column '{column}' not found in the DataFrame.")
+

@@ -5,10 +5,11 @@ Team : Ghalia, Rania, Valentin, Omar and Leïla
 # Abstract
 This project explores the impact of book adaptations on a movie’s success, examining which factors contribute to their financial and critical outcomes. By leveraging the CMU Movie Summary Corpus, enriched with metadata from IMDb and Wikidata, the research investigates whether being adapted from a book, including genre and source type (single novel or series), correlates with box office revenue and audience reception. The analysis aims to uncover patterns in adaptation strategies, comparing profitability across different genres and production scales. This study not only highlights the key elements behind the successful transition from page to screen but also offers insights into broader audience preferences and the storytelling elements that resonate with viewers.
 
+
+# Research Questions
 ## Storytelling Framework
 The analysis is framed around the storytelling theme. This narrative guides us through the following research questions, building a cohesive story that contrasts book adaptations and original movies.
 
-# Research Questions
 1. **The Origins: What Books Capture the Attention of Filmmakers?**
    - What traits in books make them attractive for adaptation?
 
@@ -82,25 +83,25 @@ In order to find answers to these questions, we will use the following data anal
 - Step 2 : Calculate ROI and visualize the distribution to identify budget “sweet spots” where adaptations achieve the best returns.
 
 ## Part 6 : Plot twist: unexpected story successes
+- Identify outliers—book adaptations that surpassed expectations despite low initial ratings or budgets—and analyze their attributes to uncover common factors contributing to their success.
 
 
+# 🗓️ Timeline
 
-# Timeline 
+## ⏳ Until 15/11/2024 (Deadline Milestone P2)
+- **Creating Dataset**: *Rania and Ghalia*
+- **Data Handling and Preprocessing**: *Rania and Ghalia*
+- **Initial Exploratory Data Analysis**: *Omar, Leïla, and Valentin*
 
-## Until 15/11/2024 (Deadline Milestone P2) :   
-- Creating dataset (Rania and Ghalia)
-- Data-Handling and Preprocessing (Rania and Ghalia)
-- Initial Exploratory Data Analysis (Omar, Leïla and Valentin)
+## 📅 15/11 to 30/11
+- **Homework 2**: *All 5 members*
+- **Parts 1 - 3 Completion**: *Leïla, Rania, and Valentin*
 
-## 15/11 to 30/11 :
-- Homework 2 (all 5 members)
-- Parts 1 - 3 (Leïla, Rania and Valentin)
+## 📆 30/11 to 8/12
+- **Parts 4 - 5 Completion**: *Ghalia and Omar*
+- **Start Part 6 - Visualization Planning**: *Valentin*
+- **Begin Implementation**: *Leïla and Rania*
 
-## 30/11 to 8/12 :
-- Parts 4 - 5 (Ghalia and Omar)
-- Start Part 6 : How would we like to visualize our findings ? (Valentin)
-- Start implementation(Leïla and Rania)
-
-## 8/12 to 22/12 (Deadline Milestone P3) : 
-- Cleaning repository 
-- Finalize/Refine our host page for visualizing our data story
+## 🗓️ 8/12 to 22/12 (Deadline Milestone P3)
+- **Repository Cleaning**: *All team members*
+- **Finalize/Refine Host Page for Data Visualization**: *All team members*

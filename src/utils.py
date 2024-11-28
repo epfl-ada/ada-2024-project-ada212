@@ -88,6 +88,7 @@ def heatmap_missing_values(data):
 
     plt.show()
 
+
 def proportion_missing_values_all_dataset(data, features, adaptation=False):
     """
     Create a dictionary to store the count of missing values for each feature.
@@ -96,9 +97,10 @@ def proportion_missing_values_all_dataset(data, features, adaptation=False):
     if adaptation:
         data = data[data['movie_is_adaptation'] == True]
         print(f"Count of adapted movies: {len(data)}")
-    
+
     missing_values_dict = {feature: data[feature].isna().sum() for feature in features}
     return missing_values_dict
+
 
 def print_missing_values_summary(data, features, adaptation=False):
     """
@@ -111,7 +113,7 @@ def print_missing_values_summary(data, features, adaptation=False):
     else:
         subset_data = data
         total_count = len(data)
-    
+
     missing_values_dict = proportion_missing_values_all_dataset(data, features, adaptation)
     print("\nMissing Values Summary:")
     for feature, missing_count in missing_values_dict.items():
@@ -119,12 +121,15 @@ def print_missing_values_summary(data, features, adaptation=False):
         print(f"{feature}: {missing_count} missing values ({proportion:.2f}%)")
 
     # Print the overall proportion of missing values for adaptations and non-adaptations
-    adapted_missing_counts = {feature: data[data['movie_is_adaptation'] == True][feature].isna().sum() for feature in features}
-    non_adapted_missing_counts = {feature: data[data['movie_is_adaptation'] == False][feature].isna().sum() for feature in features}
+    adapted_missing_counts = {feature: data[data['movie_is_adaptation'] == True][feature].isna().sum() for feature in
+                              features}
+    non_adapted_missing_counts = {feature: data[data['movie_is_adaptation'] == False][feature].isna().sum() for feature
+                                  in features}
 
     print("\nProportion of missing values for adaptations:")
     for feature, count in adapted_missing_counts.items():
-        proportion = (count / len(data[data['movie_is_adaptation'] == True])) * 100 if len(data[data['movie_is_adaptation'] == True]) > 0 else 0
+        proportion = (count / len(data[data['movie_is_adaptation'] == True])) * 100 if len(
+            data[data['movie_is_adaptation'] == True]) > 0 else 0
         print(f"{feature}: {proportion:.2f}%")
 
     print("\nProportion of missing values for the entire dataset (including non-adaptations):")
@@ -132,8 +137,10 @@ def print_missing_values_summary(data, features, adaptation=False):
         proportion = (count / len(data)) * 100 if len(data) > 0 else 0
         print(f"{feature}: {proportion:.2f}%")
 
-def proportion_of_dataset(dataset_original, dataset_reduced) : 
-    return (len(dataset_reduced)/len(dataset_original)*100)
+
+def proportion_of_dataset(dataset_original, dataset_reduced):
+    return (len(dataset_reduced) / len(dataset_original) * 100)
+
 
 def plot_histograms(df, columns):
     """
@@ -148,8 +155,6 @@ def plot_histograms(df, columns):
             plt.figure(figsize=(10, 6))
             sns.histplot(df[column].dropna(), kde=True, bins=30, color='blue')
 
-            
-
             plt.title(f'Distribution of {column}')
             plt.xlabel(column)
             plt.ylabel('Frequency')
@@ -158,3 +163,26 @@ def plot_histograms(df, columns):
         else:
             print(f"Column '{column}' not found in the DataFrame.")
 
+
+def plot_pie_chart_2(df, column_pos, column_neg):
+    pos_counts = df[column_pos].sum()
+    neg_counts = df[column_neg].sum()
+    counts = [pos_counts, neg_counts]
+    labels = [column_pos, column_neg]
+    # Plot the donut chart
+    plt.figure(figsize=(4, 4))
+    plt.pie(counts, labels=labels, autopct='%1.1f%%', colors=['#8B0000', '#6a737b'], startangle=90,
+            wedgeprops=dict(width=0.3))
+    plt.title("Percentage of {} vs {}".format(column_pos, column_neg))
+    plt.show()
+
+
+def plot_pie_chart_1(df, column):
+    counts = df[column].value_counts()
+    labels = ["non_{}".format(column), column]
+    # Plot the donut chart
+    plt.figure(figsize=(4, 4))
+    plt.pie(counts, labels=labels, autopct='%1.1f%%', colors=['#8B0000', '#6a737b'], startangle=90,
+            wedgeprops=dict(width=0.3))
+    plt.title("Percentage of {} vs {}".format(labels[0], labels[1]))
+    plt.show()

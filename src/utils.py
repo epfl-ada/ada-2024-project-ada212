@@ -163,26 +163,3 @@ def plot_histograms(df, columns):
         else:
             print(f"Column '{column}' not found in the DataFrame.")
 
-
-def plot_pie_chart_2(df, column_pos, column_neg):
-    pos_counts = df[column_pos].sum()
-    neg_counts = df[column_neg].sum()
-    counts = [pos_counts, neg_counts]
-    labels = [column_pos, column_neg]
-    # Plot the donut chart
-    plt.figure(figsize=(4, 4))
-    plt.pie(counts, labels=labels, autopct='%1.1f%%', colors=['#8B0000', '#6a737b'], startangle=90,
-            wedgeprops=dict(width=0.3))
-    plt.title("Percentage of {} vs {}".format(column_pos, column_neg))
-    plt.show()
-
-
-def plot_pie_chart_1(df, column):
-    counts = df[column].value_counts()
-    labels = ["non_{}".format(column), column]
-    # Plot the donut chart
-    plt.figure(figsize=(4, 4))
-    plt.pie(counts, labels=labels, autopct='%1.1f%%', colors=['#8B0000', '#6a737b'], startangle=90,
-            wedgeprops=dict(width=0.3))
-    plt.title("Percentage of {} vs {}".format(labels[0], labels[1]))
-    plt.show()

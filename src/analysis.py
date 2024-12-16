@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import pandas as pd
 import seaborn as sns
 import numpy as np
 from matplotlib import gridspec
@@ -249,6 +250,7 @@ def plot_ratings_histogram(df):
     ax1.get_legend()._legend_box.align = "left"
     plt.show()
 
+
 def make_book_histplot(df, col: str, x_label: str, log=False, ylog=False):
     if log:
         df["log"] = np.log(df[col])
@@ -256,10 +258,11 @@ def make_book_histplot(df, col: str, x_label: str, log=False, ylog=False):
     gs = gridspec.GridSpec(2, 1, height_ratios=[1, 6], hspace=0.05)
     ax0 = plt.subplot(gs[0])
     ax1 = plt.subplot(gs[1])
-    if ylog==True:
+    if ylog == True:
         ax1.set_yscale('log')
     if log:
-        sns.histplot(data=df, x=col, hue='label', ax=ax1, bins=50, palette=['#6a737b', '#8B0000'], log_scale=True, multiple="stack")
+        sns.histplot(data=df, x=col, hue='label', ax=ax1, bins=50, palette=['#6a737b', '#8B0000'], log_scale=True,
+                     multiple="stack")
         sns.boxplot(data=df, x="log", y='label', ax=ax0, palette=['#6a737b', '#8B0000'], fliersize=0)
     else:
         sns.histplot(data=df, x=col, hue='label', ax=ax1, bins=50, palette=['#6a737b', '#8B0000'], multiple="stack")
@@ -279,5 +282,83 @@ def make_book_histplot(df, col: str, x_label: str, log=False, ylog=False):
     ax1.get_legend().set_title("")
     ax1.get_legend()._legend_box.align = "left"
 
-    plt.savefig(f"assets/{col}_histogram.pdf", bbox_inches="tight")
     plt.show()
+
+
+def matching_books(dataset, fiction_cols, genre_cols):
+    # match treatment and control groups
+    df = (dataset
+          .assign(
+        book_release_bin=dataset.book_release // 5 * 5
+    )
+          .query('book_rating.notna() & book_ratings_count > 10')
+          )
+
+    treatment_df = df.query('book_adapted == 1').reset_index(drop=False)
+    control_df = df.query('book_adapted == 0').reset_index(drop=False)
+
+    # exact matching on book release year, fiction and genre
+    matching_df = (treatment_df
+    .merge(
+        control_df,
+        on=['book_release_bin'] + fiction_cols + genre_cols,
+        suffixes=['_treatment', '_control'],
+        how='inner'
+    )
+    )
+
+    # build graph for matching
+    G = nx.Graph()
+    for _, row in tqdm(matching_df.iterrows(), total=len(matching_df), desc='Building Graph'):
+        index_control = row['index_control']
+        index_treatment = row['index_treatment']
+        G.add_edges_from([(index_control, index_treatment)])
+
+    matching = nx.maximal_matching(G)
+    matched = [i[0] for i in list(matching)] + [i[1] for i in list(matching)]
+    balanced = df.loc[matched]
+    return balanced
+
+
+def make_book_histplot_2(df, col: str, x_label: str, log=False, ylog=False):
+    if log:
+        df["log"] = np.log(df[col])
+    fig = plt.figure(figsize=(8, 4))
+    gs = gridspec.GridSpec(2, 1, height_ratios=[1, 6], hspace=0.05)
+    ax0 = plt.subplot(gs[0])
+    ax1 = plt.subplot(gs[1])
+    if ylog == True:
+        ax1.set_yscale('log')
+    if log:
+        sns.histplot(data=df, x=col, hue='label', ax=ax1, bins=50, palette=['#6a737b', '#8B0000'], log_scale=True)
+        sns.boxplot(data=df, x="log", y='label', ax=ax0, palette=['#6a737b', '#8B0000'], fliersize=0)
+    else:
+        sns.histplot(data=df, x=col, hue='label', ax=ax1, bins=50, palette=['#6a737b', '#8B0000'])
+        sns.boxplot(data=df, x=col, y='label', ax=ax0, palette=['#6a737b', '#8B0000'], fliersize=0)
+
+    ax0.set(xlabel="", ylabel="")
+    ax0.set(xticklabels=[], yticklabels=[])
+    ax0.set(xticks=[], yticks=[])
+    ax0.spines["top"].set_visible(False)
+    ax0.spines["bottom"].set_visible(False)
+    ax0.spines["right"].set_visible(False)
+    ax0.spines["left"].set_visible(False)
+
+    ax1.set(xlabel=x_label, ylabel="Number of Books")
+    ax1.spines["top"].set_visible(False)
+    ax1.spines["right"].set_visible(False)
+    ax1.get_legend().set_title("")
+    ax1.get_legend()._legend_box.align = "left"
+
+    plt.show()
+
+
+def clean_country_list(countries):
+    if pd.isna(countries):
+        return []
+    return [country.strip() for country in countries.strip("[]").replace("'", "").split(",")]
+
+def create_country_pairs(countries):
+    if len(countries) > 1:
+        return [(countries[i], countries[j]) for i in range(len(countries)) for j in range(i + 1, len(countries))]
+    return []

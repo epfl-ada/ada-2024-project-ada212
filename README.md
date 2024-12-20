@@ -141,8 +141,6 @@ Which book adaptations outperformed expectations despite low initial ratings or 
 - Identify outliers where adaptations exceeded expectations despite low initial ratings or budgets.
 - Examine common attributes among these adaptations to uncover trends in unexpected success.
 
-
-
 # 🗓️ Timeline
 
 ## ⏳ Until 15/11/2024 (Deadline Milestone P2)
@@ -162,6 +160,13 @@ Which book adaptations outperformed expectations despite low initial ratings or 
 ## 🗓️ 8/12 to 22/12 (Deadline Milestone P3)
 - **Repository Cleaning**: *All team members*
 - **Finalize/Refine Host Page for Data Visualization**: *All team members*
+
+# 🗓️ Organization within the team
+- **Ghalia**: Web Scraping/ Data Cleaning / Research Question 1/ Research Question 3/ Research Question 4
+- **Rania**: Web Scraping/ Data Cleaning/ Research Question 2/ Research Question 4/ Data Story/ Website Layout
+- **Leila**: Data Preprocessing/ Preliminary Analyses/ Research Question 4/ Research Question 6/ GitHub Organization
+- **Omar**: Web Scrapping/ Preliminary Analyses/ Research Question 1/ Research Question 5/ Research Question 6
+- **Valentin**: Preliminary Analyses/ Research Question 6
 
 ```
 ada-2024-project-ada212/

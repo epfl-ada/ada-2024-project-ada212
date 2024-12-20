@@ -125,9 +125,9 @@ Is there a direct correlation between the budget of an adaptation and its financ
 ### Analysis
 - Use scatter plots and regression models to analyze relationships between budget size, revenue, and success metrics.
 - Calculate ROI using the formula:
-  \[
+  $$
   ROI = \frac{\text{Revenue} - \text{Budget}}{\text{Budget}}
-  \]
+  $$
   and visualize the distribution with kernel density plots.
 - Identify budget ranges associated with optimal returns on investment.
 

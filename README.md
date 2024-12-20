@@ -162,7 +162,7 @@ Which book adaptations outperformed expectations despite low initial ratings or 
 - **Finalize/Refine Host Page for Data Visualization**: *All team members*
 
 # 🗓️ Organization within the team
-- **Ghalia**: Web Scraping/ Data Cleaning / Research Question 1/ Research Question 3/ Research Question 4
+- **Ghalia**: Web Scraping/ Data Cleaning / Research Question 1/ Research Question 3/ Research Question 4/ GitHub Organization
 - **Rania**: Web Scraping/ Data Cleaning/ Research Question 2/ Research Question 4/ Data Story/ Website Layout
 - **Leila**: Data Preprocessing/ Preliminary Analyses/ Research Question 4/ Research Question 6/ GitHub Organization
 - **Omar**: Web Scrapping/ Preliminary Analyses/ Research Question 1/ Research Question 5/ Research Question 6
@@ -181,7 +181,8 @@ ada-2024-project-ada212/
 │   └── flat-ui__data-ThuNov142024.csv     # U.S. Consumer Price Index 
 │
 ├── src/                                   # Source code directory for project scripts and notebooks
-│   └── utils.py                           # Utility functions used across the project
+│   ├── utils.py                           # Utility functions used during the data cleaning and preliminary analysis phases
+│   └── analysis.py                        # Utility functions used across the analysis phase
 │
 ├── README.md                              # Project documentation
 ├── framework.ipynb                        # Notebook outlining the framework for analysis

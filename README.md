@@ -173,6 +173,10 @@ ada-2024-project-ada212/
 ├── data/                                  # Directory for all data files used in the project
 │   ├── book_adaptation.csv                # Dataset containing movies and their potential book adaptation information
 │   ├── book_adaptation_expanded.csv       # Expanded dataset with additional revenues and budgets for movies
+│   ├── book.csv                           # Dataset for adapted and non adapted books
+│   ├── auxiliary_dataset.csv              # Auxiliary Dataset used for revenue and budget analysis
+│   ├── dataset_final.csv                  # Final dataset used in Milestone 3
+│   ├── imdb_budget_comparison.csv        # Fetched Budget Data used in Milestone 3
 │   ├── cleaned_dataset.csv                # Cleaned version of the dataset after preprocessing
 │   └── inflation_adjustment.csv           # Data file for adjusting monetary values for inflation
 │
@@ -185,6 +189,7 @@ ada-2024-project-ada212/
 │
 ├── README.md                              # Project documentation
 ├── framework.ipynb                        # Notebook outlining the framework for analysis
+├── extract_movie_budget.ipynb             # Jupyter notebook for budget data extraction used in Milestone 3
 ├── results.ipynb                          # Notebook summarizing and presenting the results
 ├── data_extraction.ipynb                  # Jupyter notebook for data extraction and initial exploration
 ├── requirements.txt                       # List of dependencies for reproducing the project environment

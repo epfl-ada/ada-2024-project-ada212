@@ -176,7 +176,7 @@ ada-2024-project-ada212/
 │   ├── book.csv                           # Dataset for adapted and non adapted books
 │   ├── auxiliary_dataset.csv              # Auxiliary Dataset used for revenue and budget analysis
 │   ├── dataset_final.csv                  # Final dataset used in Milestone 3
-│   ├── imdb_budget_comparison.csv        # Fetched Budget Data used in Milestone 3
+│   ├── imdb_budget_comparison.csv         # Fetched Budget Data used in Milestone 3
 │   ├── cleaned_dataset.csv                # Cleaned version of the dataset after preprocessing
 │   └── inflation_adjustment.csv           # Data file for adjusting monetary values for inflation
 │

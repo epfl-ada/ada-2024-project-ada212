@@ -5,6 +5,8 @@ Team : Ghalia, Rania, Valentin, Omar and Leïla
 # Abstract
 This project explores the impact of book adaptations on a movie’s success, examining which factors contribute to their financial and critical outcomes. By leveraging the CMU Movie Summary Corpus, enriched with metadata from IMDb and Wikidata, the research investigates whether being adapted from a book, including genre and source type (single novel or series), correlates with box office revenue and audience reception. The analysis aims to uncover patterns in adaptation strategies, comparing profitability across different genres and production scales. This study not only highlights the key elements behind the successful transition from page to screen but also offers insights into broader audience preferences and the storytelling elements that resonate with viewers.
 
+# Data Story
+Our Data Story is presented in the following link: ...
 
 # Research Questions
 ## Storytelling Framework
@@ -15,15 +17,12 @@ The analysis is framed around the storytelling theme. This narrative guides us t
 
 2. **The Path to Adaptation: What Factors Influence Adaptation Time?**
    - How long does it take for a popular book to become a movie, and what influences this timeline?
-   - Are there seasonal patterns in the release of book adaptations?
 
 3. **The Grand Premiere: Measuring the Success of Adaptations**
-   - What elements predict the success of a movie adaptation?
-   - How has the popularity and financial success of book adaptations evolved over time?
+   - How book adaptations succeed compared to original movies?
 
 4. **The Global Reception: Do Adaptations Translate Well Across Borders?**
    - How do movie adaptations perform internationally, and are adaptations from certain countries more successful?
-   - Are adaptations from certain countries more successful, and do they align with the nationality of the book's author?
 
 5. **The Budget and Investment Dilemma: Does Spending More Pay Off?**
    - Is there a direct correlation between the budget of an adaptation and its financial and critical success?
@@ -55,35 +54,93 @@ The analysis is framed around the storytelling theme. This narrative guides us t
 # Methods 
 In order to find answers to these questions, we will use the following data analysis pipeline.
 
-## Part 0 : Creating dataset and cleaning the data
-- **Approach**:
-  - Remove duplicates and handle missing values appropriately.
-  - Clean categorical variables (e.g., genres, languages) and standardize numerical data (e.g., revenue, budget) for analysis.
-  - Normalize or transform data as needed (e.g., log transformations for skewed distributions).
-    
-## Part 1 : Looking for similarities between adapted books
-- Step 1 : Use correlation analysis to identify book features (e.g., ratings, page count) that correlate with being chosen for adaptation
-- Step 2 : Use a Random Forest Regressor to determine which features of the book (e.g., page count, genre, ratings) are most important in predicting movie success.
-- Step 3 : Implement a logistic regression to predict whether a book will result in a successful movie adaptation (using a threshold, such as revenue above a median value or IMDb rating above a certain score).
+## Table of Contents
+1. [Creating the Dataset and Cleaning the Data](#part-0-creating-the-dataset-and-cleaning-the-data)
+2. [Identifying Traits That Make Books Attractive for Adaptation](#part-1-identifying-traits-that-make-books-attractive-for-adaptation)
+3. [Mapping the Timeline of Adaptations](#part-2-mapping-the-timeline-of-adaptations)
+4. [Measuring the Success of Book-to-Movie Transformations](#part-3-measuring-the-success-of-book-to-movie-transformations)
+5. [Analyzing the International Success of Adaptations](#part-4-analyzing-the-international-success-of-adaptations)
+6. [Examining the Role of Budget in Adaptations](#part-5-examining-the-role-of-budget-in-adaptations)
+7. [Unveiling Unexpected Success Stories](#part-6-unveiling-unexpected-success-stories)
 
-## Part 2 : Analyzing Adaptation Timelines and Release Patterns
-- Step 1 : **Kaplan-Meier Estimators**: Visualize the “survival” rate of books over time, showing the likelihood of adaptation within different time frames.
-- Step 2: **Seasonal Analysis**: Analyze the release patterns of adaptations to identify if certain seasons align with higher success rates using time series plots.
+---
 
-## Part 3 : Results of book-to-movie transformation
-- Step 1 : Model the relationship between book characteristics (e.g., genre, ratings) and movie success metrics (e.g., box office revenue, IMDb rating). For instance, using correlational analysis between Goodreads ratings and movie performance metrics.
-- Step 2 : Compare movie adaptations with original movies to see which type tends to perform better.
+## Part 0: Creating the Dataset and Cleaning the Data
+### Objective
+Prepare a reliable dataset for analysis by addressing issues like missing values and inconsistencies.
 
-## Part 4 : International renown of adaptations 
-- Step 1 : Create maps showing the performance of adaptations by country.
-- Step 2 : Use audience review data to assess how adaptations are received in different parts of the world.
+### Approach
+- Remove duplicates and handle missing values effectively.
+- Standardize categorical variables (e.g., genres, languages) and numerical data (e.g., revenue, budget).
+- Apply normalization or transformations (e.g., log transformations) to address skewed distributions.
 
-## Part 5 : Focusing on budget allocated to adaptations
-- Step 1 : Use scatter plots and regression models to show if a larger budget leads to higher revenue and better ratings.
-- Step 2 : Calculate ROI and visualize the distribution to identify budget “sweet spots” where adaptations achieve the best returns.
+---
 
-## Part 6 : Plot twist: unexpected story successes
-- Identify outliers—book adaptations that surpassed expectations despite low initial ratings or budgets—and analyze their attributes to uncover common factors contributing to their success.
+## Part 1: Identifying Traits That Make Books Attractive for Adaptation
+### Research Question
+What traits in books make them attractive for adaptation?
+
+### Analysis
+- Explore common characteristics of adapted books (e.g., genre, length, ratings).
+- Use correlation analysis to identify book features (e.g., ratings, page count) associated with adaptation likelihood.
+- Compare adapted and non-adapted books using propensity score matching to highlight distinct traits.
+
+---
+
+## Part 2: Mapping the Timeline of Adaptations
+### Research Question
+How long does it take for a popular book to become a movie, and what influences this timeline?
+
+### Analysis
+- Visualize adaptation timelines with Kaplan-Meier estimators, showing the probability of adaptation over time.
+- Apply Lasso and Ridge Regression to pinpoint factors influencing adaptation speed.
+
+---
+
+## Part 3: Measuring the Success of Book-to-Movie Transformations
+### Research Question
+How book adaptations succeed compared to original movies?
+
+### Analysis
+- Model relationships between book traits (e.g., genre, ratings) and movie success metrics (e.g., box office revenue, IMDb ratings).
+- Conduct propensity score matching to compare success rates of book adaptations and original movies.
+
+---
+
+## Part 4: Analyzing the International Success of Adaptations
+### Research Question
+How do movie adaptations perform internationally, and are adaptations from certain countries more successful?
+
+### Analysis
+- Use maps to visualize the performance of adaptations by country.
+- Leverage audience review data to assess reception across different regions.
+- Investigate trends between multinational productions and single-country productions.
+
+---
+
+## Part 5: Examining the Role of Budget in Adaptations
+### Research Question
+Is there a direct correlation between the budget of an adaptation and its financial and critical success?
+
+### Analysis
+- Use scatter plots and regression models to analyze relationships between budget size, revenue, and success metrics.
+- Calculate ROI using the formula:
+  \[
+  ROI = \frac{\text{Revenue} - \text{Budget}}{\text{Budget}}
+  \]
+  and visualize the distribution with kernel density plots.
+- Identify budget ranges associated with optimal returns on investment.
+
+---
+
+## Part 6: Unveiling Unexpected Success Stories
+### Research Question
+Which book adaptations outperformed expectations despite low initial ratings or budgets?
+
+### Analysis
+- Identify outliers where adaptations exceeded expectations despite low initial ratings or budgets.
+- Examine common attributes among these adaptations to uncover trends in unexpected success.
+
 
 
 # 🗓️ Timeline

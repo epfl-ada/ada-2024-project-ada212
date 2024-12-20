@@ -6,7 +6,7 @@ Team : Ghalia, Rania, Valentin, Omar and Leïla
 This project explores the impact of book adaptations on a movie’s success, examining which factors contribute to their financial and critical outcomes. By leveraging the CMU Movie Summary Corpus, enriched with metadata from IMDb and Wikidata, the research investigates whether being adapted from a book, including genre and source type (single novel or series), correlates with box office revenue and audience reception. The analysis aims to uncover patterns in adaptation strategies, comparing profitability across different genres and production scales. This study not only highlights the key elements behind the successful transition from page to screen but also offers insights into broader audience preferences and the storytelling elements that resonate with viewers.
 
 # Data Story
-Our Data Story is presented in the following link: ...
+Our Data Story is presented in the following link: https://raniahtr.github.io/ADA212_page_to_screens/
 
 # Research Questions
 ## Storytelling Framework

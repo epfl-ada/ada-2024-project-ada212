@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import pandas as pd
 from matplotlib import gridspec
 from tqdm import tqdm
 import networkx as nx
@@ -16,11 +17,13 @@ from sklearn.linear_model import Lasso, Ridge
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
-import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+from ast import literal_eval
+from scipy.stats import gaussian_kde
+import plotly.express as px
 
 
 def histogram_book_genre(data):
@@ -1132,3 +1135,357 @@ def plot_roi_distribution(df):
         width=500
     )
     return fig
+
+
+def analyze_adaptations(df, book_threshold=3.0):
+    """
+    Analyze movies that are adaptations, comparing book ratings to IMDB ratings
+    Highlighting 'underdog' books (those with low book ratings but potentially higher IMDB ratings)
+    """
+    # Filter for adaptations only
+    filtered_df = df[df['movie_is_adaptation'] == True]
+
+    # Split data into underdogs and others
+    underdogs = filtered_df[filtered_df['book_rating'] < book_threshold]
+    others = filtered_df[filtered_df['book_rating'] >= book_threshold]
+
+    # Create figure
+    fig = go.Figure()
+
+    # Create color scale
+    colorscale = [
+        [0, 'rgb(49,54,149)'],  # Dark blue
+        [0.2, 'rgb(69,117,180)'],  # Blue
+        [0.4, 'rgb(116,173,209)'],  # Light blue
+        [0.6, 'rgb(224,243,248)'],  # Very light blue
+        [0.7, 'rgb(254,224,144)'],  # Light yellow
+        [0.8, 'rgb(253,174,97)'],  # Orange
+        [0.9, 'rgb(244,109,67)'],  # Dark orange
+        [1, 'rgb(215,48,39)']  # Red
+    ]
+
+    # Plot others
+    fig.add_trace(
+        go.Scatter(
+            x=others['book_rating'],
+            y=others['imdb_rating'],
+            mode='markers',
+            name='Other Adaptations',
+            text=others['movie_title'],
+            marker=dict(
+                size=10,
+                color=others['imdb_rating'],
+                colorscale=colorscale,
+                colorbar=dict(title='IMDB Rating'),
+                opacity=0.6,
+                showscale=True
+            ),
+            hovertemplate=(
+                    "<b>%{text}</b><br>" +
+                    "Book Rating: %{x:.1f}<br>" +
+                    "IMDB Rating: %{y:.1f}<br>" +
+                    "<extra></extra>"
+            )
+        )
+    )
+
+    # Plot underdogs with larger markers and black outline
+    fig.add_trace(
+        go.Scatter(
+            x=underdogs['book_rating'],
+            y=underdogs['imdb_rating'],
+            mode='markers',
+            name='Underdog Books',
+            text=underdogs['movie_title'],
+            marker=dict(
+                size=12,
+                color=underdogs['imdb_rating'],
+                colorscale=colorscale,
+                opacity=1.0,
+                line=dict(
+                    color='black',
+                    width=1
+                ),
+                showscale=False
+            ),
+            hovertemplate=(
+                    "<b>%{text}</b><br>" +
+                    "Book Rating: %{x:.1f}<br>" +
+                    "IMDB Rating: %{y:.1f}<br>" +
+                    "<extra></extra>"
+            )
+        )
+    )
+
+    # Add vertical line for book rating threshold
+    fig.add_vline(
+        x=book_threshold,
+        line_dash="dash",
+        line_color="gray",
+        annotation_text=f"Book Rating = {book_threshold}",
+        annotation_position="top"
+    )
+
+    fig.add_hline(
+        y=6.0,
+        line_dash="dash",
+        line_color="gray",
+        annotation_text=f"IMDB Rating = {6.0}",
+        annotation_position="top"
+    )
+
+    # Update layout
+    fig.update_layout(
+        title={
+            'text': 'Book Ratings vs IMDB Ratings: Highlighting Low-Rated Books',
+            'y': 0.95,
+            'x': 0.5,
+            'xanchor': 'center',
+            'yanchor': 'top'
+        },
+        xaxis_title='Book Rating',
+        yaxis_title='IMDB Rating',
+        height=600,
+        width=900,
+        plot_bgcolor='white',
+        showlegend=True,
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="left",
+            x=0.01
+        )
+    )
+
+    # Update axes
+    fig.update_xaxes(
+        showgrid=True,
+        gridwidth=1,
+        gridcolor='LightGray',
+        range=[0, 10]
+    )
+    fig.update_yaxes(
+        showgrid=True,
+        gridwidth=1,
+        gridcolor='LightGray',
+        range=[0, 10]
+    )
+
+    # Print statistics
+    print(f"Number of adaptation movies: {len(filtered_df)}")
+    print(f"Number of underdog books (rating < {book_threshold}): {len(underdogs)}")
+
+    if len(underdogs) > 0:
+        # Find movies where IMDB rating significantly exceeded book rating
+        print("\nTop 5 biggest improvements (IMDB vs Book rating):")
+        underdogs['rating_improvement'] = underdogs['imdb_rating'] - underdogs['book_rating']
+        top_improvements = underdogs.nlargest(5, 'rating_improvement')
+        for _, movie in top_improvements.iterrows():
+            print(f"\n{movie['movie_title']}:")
+            print(f"  Book Rating: {movie['book_rating']:.1f}")
+            print(f"  IMDB Rating: {movie['imdb_rating']:.1f}")
+            print(f"  Improvement: {movie['rating_improvement']:.1f} points")
+
+    return fig, underdogs
+
+
+def convert_string_lists_to_lists(df, columns):
+    """
+    Convert string representations of lists to actual lists for specified columns
+
+    Args:
+        df (pd.DataFrame): DataFrame containing the columns to convert
+        columns (list): List of column names to convert
+
+    Returns:
+        pd.DataFrame: DataFrame with converted columns
+    """
+    for col in columns:
+        df[col] = df[col].apply(literal_eval)
+    return df
+
+
+def create_dummies(df, column_name, column='movie_genres', prefix='genre_'):
+    """
+    Create dummy variables for movie genres and add them to the dataframe
+
+    Args:
+        df (pd.DataFrame): DataFrame containing the genre column
+        column_name (str): Name of new column to store dummies in
+        genre_column (str): Name of column containing genre lists
+        prefix (str): Prefix to add to dummy column names
+
+    Returns:
+        pd.DataFrame: DataFrame with added genre dummy columns
+    """
+    # Get all unique genres
+    all_genres = sorted(list(set([genre for sublist in df[column] for genre in sublist])))
+
+    # Create dummy variables
+    genre_dummies = df[column].apply(lambda x: pd.Series([1 if genre in x else 0 for genre in all_genres]))
+
+    # Name the columns
+    genre_dummies.columns = [f'{prefix}{genre}' for genre in all_genres]
+
+    return pd.concat([df, genre_dummies], axis=1), genre_dummies
+
+
+def create_distribution_plot(dummies, category_name='Genre', prefix='genre_', title=None):
+    """
+    Create a distribution plot for categorical data with color gradient
+
+    Args:
+        dummies (pd.DataFrame): DataFrame with dummy variables
+        category_name (str): Name of the category being plotted (e.g. 'Genre', 'Language')
+        prefix (str): Prefix used in dummy column names
+        title (str): Plot title. If None, uses default based on category_name
+
+    Returns:
+        plotly.graph_objects.Figure: Distribution plot
+    """
+    # Calculate counts
+    counts = dummies.sum().sort_values(ascending=True)
+
+    # Create DataFrame for plotting
+    plot_df = pd.DataFrame({
+        category_name: counts.index.str.replace(f'{prefix}', ''),
+        'Count': counts.values
+    })
+
+    # Set default title if none provided
+    if title is None:
+        title = f'Distribution of Movie {category_name}s in Underdog Books'
+
+    # Create bar plot
+    fig = px.bar(
+        plot_df,
+        x='Count',
+        y=category_name,
+        orientation='h',
+        title=title,
+        color='Count',
+        color_continuous_scale='Viridis',
+        labels={
+            'Count': 'Number of Movies',
+            category_name: category_name
+        }
+    )
+
+    # Update layout
+    fig.update_layout(
+        height=1200,
+        width=900,
+        plot_bgcolor='white',
+        title={
+            'y': 0.98,
+            'x': 0.5,
+            'xanchor': 'center',
+            'yanchor': 'top'
+        },
+        margin=dict(l=20, r=20, t=50, b=20),
+        yaxis=dict(tickfont=dict(size=12)),
+        xaxis=dict(tickfont=dict(size=12)),
+        coloraxis_colorbar=dict(
+            title='Number of Movies',
+            tickfont=dict(size=10),
+            titlefont=dict(size=12)
+        )
+    )
+
+    # Update axes
+    fig.update_xaxes(gridcolor='LightGray', gridwidth=1)
+
+    return fig, counts
+
+
+def print_category_stats(counts, total_items, prefix='genre_'):
+    """
+    Print statistics about category distribution
+
+    Args:
+        counts (pd.Series): Series containing category counts
+        total_items (int): Total number of items
+        prefix (str): Prefix to remove from category names
+    """
+    print(f"\nTotal number of movies: {total_items}")
+    print("\nTop 5 most common categories:")
+    for category, count in counts.iloc[-5:].items():
+        print(f"{category.replace(prefix, '')}: {int(count)} movies")
+
+
+def create_runtime_distribution_plot(data):
+    """
+    Creates a distribution plot of movie runtimes with histogram and KDE curve.
+
+    Args:
+        data (pd.DataFrame): DataFrame containing movie_runtime column
+
+    Returns:
+        plotly.graph_objects.Figure: The distribution plot figure
+    """
+    # Create figure
+    fig = go.Figure()
+
+    # Add histogram
+    fig.add_trace(go.Histogram(
+        x=data['movie_runtime'],
+        name='Histogram',
+        nbinsx=30,
+        opacity=0.7,
+        histnorm='probability density'
+    ))
+
+    # Add KDE curve
+    kde = gaussian_kde(data['movie_runtime'].dropna())
+    x_range = np.linspace(data['movie_runtime'].min(),
+                          data['movie_runtime'].max(),
+                          100)
+    fig.add_trace(go.Scatter(
+        x=x_range,
+        y=kde(x_range),
+        name='Density',
+        line=dict(color='red', width=2)
+    ))
+
+    # Update layout
+    fig.update_layout(
+        title={
+            'text': 'Distribution of Movie Runtimes for Underdog Books',
+            'y': 0.95,
+            'x': 0.5,
+            'xanchor': 'center',
+            'yanchor': 'top'
+        },
+        xaxis_title='Runtime (minutes)',
+        yaxis_title='Density',
+        width=900,
+        height=600,
+        plot_bgcolor='white',
+        showlegend=True,
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="left",
+            x=0.01
+        )
+    )
+
+    # Update axes
+    fig.update_xaxes(gridcolor='LightGray', gridwidth=1)
+    fig.update_yaxes(gridcolor='LightGray', gridwidth=1)
+
+    return fig
+
+
+def print_runtime_statistics(data):
+    """
+    Prints summary statistics for movie runtimes.
+
+    Args:
+        data (pd.DataFrame): DataFrame containing movie_runtime column
+    """
+    print("\nRuntime Statistics:")
+    print(f"Average runtime: {data['movie_runtime'].mean():.1f} minutes")
+    print(f"Median runtime: {data['movie_runtime'].median():.1f} minutes")
+    print(f"Shortest movie: {data['movie_runtime'].min():.1f} minutes")
+    print(f"Longest movie: {data['movie_runtime'].max():.1f} minutes")

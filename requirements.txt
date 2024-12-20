@@ -9,3 +9,9 @@ wikimapper==0.2.0
 geopandas==0.14.2
 lifelines==0.30.0
 IMDbPY==2022.7.9
+
+networkx~=3.3
+statsmodels~=0.14.2
+plotly~=5.22.0
+tqdm~=4.66.5
+scikit-learn~=1.5.1
